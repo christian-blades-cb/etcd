@@ -21,7 +21,7 @@
 // etcd binary, work in the `github.com/coreos/etcd/etcdmain` package.
 //
 
-package main
+package main // import "github.com/coreos/etcd"
 
 import "github.com/coreos/etcd/etcdmain"
 

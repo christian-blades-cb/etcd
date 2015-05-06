@@ -1,16 +1,9 @@
 #!/bin/bash -e
 
-ORG_PATH="github.com/coreos"
-REPO_PATH="${ORG_PATH}/etcd"
+docker run --rm \
+  -v $(pwd):/src \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  centurylink/golang-builder \
+  christianbladescb/tiny-etcd
 
-export GOPATH=${PWD}/gopath
-
-rm -f $GOPATH/src/${REPO_PATH}
-mkdir -p $GOPATH/src/${ORG_PATH}
-ln -s ${PWD} $GOPATH/src/${REPO_PATH}
-
-eval $(go env)
-
-# Static compilation is useful when etcd is run in a container
-CGO_ENABLED=0 go build -a -installsuffix cgo -ldflags '-s' -o bin/etcd ${REPO_PATH}
-CGO_ENABLED=0 go build -a -installsuffix cgo -ldflags '-s' -o bin/etcdctl ${REPO_PATH}/etcdctl
+#docker push christianbladescb/tiny-etcd
